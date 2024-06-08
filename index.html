@@ -34,8 +34,10 @@ const firebaseConfig = {
   appId: "1:306005522870:web:575be58c93015845a7a917",
   measurementId: "G-P1ZDF163KF"
 };
+
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
+    console.log('Firebase initialized');
 
     // Initialize Firebase Authentication and Firestore
     const auth = firebase.auth();
@@ -43,10 +45,12 @@ const firebaseConfig = {
 
     auth.onAuthStateChanged(user => {
       if (user) {
+        console.log('User logged in:', user);
         document.getElementById('login-div').style.display = 'none';
         document.getElementById('app-div').style.display = 'block';
         loadImagesFromFirebase(user.uid);
       } else {
+        console.log('No user logged in');
         document.getElementById('login-div').style.display = 'block';
         document.getElementById('app-div').style.display = 'none';
       }
@@ -55,6 +59,7 @@ const firebaseConfig = {
     function signUp() {
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
+      console.log('Sign up:', email);
       auth.createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
           var user = userCredential.user;
@@ -68,6 +73,7 @@ const firebaseConfig = {
     function login() {
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
+      console.log('Login:', email);
       auth.signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
           var user = userCredential.user;
